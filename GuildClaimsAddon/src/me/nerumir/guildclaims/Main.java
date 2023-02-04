@@ -13,6 +13,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.glaremasters.guilds.Guilds;
 import me.glaremasters.guilds.api.GuildsAPI;
+import me.nerumir.guildclaims.cmds.Bypass;
+import me.nerumir.guildclaims.listeners.Commands;
+import me.nerumir.guildclaims.listeners.Farewell;
+import me.nerumir.guildclaims.listeners.Protection;
 
 public class Main extends JavaPlugin implements Listener {
 	
@@ -153,6 +157,12 @@ public class Main extends JavaPlugin implements Listener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		//registering commands and events
+		this.getCommand("cbp").setExecutor(new Bypass());
+		this.getServer().getPluginManager().registerEvents(new Commands(), this);
+		this.getServer().getPluginManager().registerEvents(new Farewell(), this);
+		this.getServer().getPluginManager().registerEvents(new Protection(), this);
 	}
 	
 	@Override
