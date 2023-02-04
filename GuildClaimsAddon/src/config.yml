@@ -1,0 +1,55 @@
+####################################################
+#            ONLY THE LEADER CAN CLAIM !           #
+#                                                  #
+#      Reloading Guilds will reload this addon     #
+#  The claiming commands are the ones from Guilds  #
+#        The addon will reload with Guilds         #
+#                                                  #
+#       Only one additionnal command exists        #
+#      It's /cbp, to bypass claim protections      #
+#   Permission for that command is guilds.bypass   #
+####################################################
+
+
+#This only works with MySQL databases.
+sql:
+  #If sql is not enabled, datas of the claims will be stored in the claims.yml file.
+  #Connection infos are in the config.yml file of Guilds.
+  enabled: false
+
+#A string that is an identifier of the server. It will be used only if MySQL is used to store claims, it's to avoid conflicts when working with bungee, making it bungee compatible.
+serverMarker: 'server1'
+
+#List of worlds where the players can claim. If blacklist is set to true, then, it's the list of worlds where player cannot claim.
+worlds: ['world']
+blacklist: false
+
+#Radius of the claim for each tier of the guild.
+#Expiration is the number of days of inactivity of the leader of the guild (last time logged in) before a claim is removed (permanently).
+#Make sure the key matches the tier id in the tier.yml file of your Guilds's folder.
+tiers:
+  '1':
+    radius: 50
+    expiration: 15
+  '2':
+    radius: 70
+    expiration: 30
+  '3':
+    radius: 100
+    expiration: 45
+
+#messages shown by the addon in game. Use '&' for minecraft colors.
+messages:
+  bypass-on: '&aBypass mode for claims activated.'
+  bypass-off: '&cBypass mode for claims desactivated.'
+  no-console: '&4This command cannot by executed by console.'
+  not-in-guild: '&cYou are not in a guild.'
+  not-leader: '&cYou are not the leader of the guild.'
+  claim-exists: '&cA claim already exists.'
+  claim-success: '&aClaim successfuly created.'
+  claim-overlap: '&cCannot claim, it will overlap other claims.'
+  claim-not-exist: '&cYour guild does''nt have any claim.'
+  unclaim-success: '&aClaim successfuly removed.'
+  claim-not-on-server: '&cThe claim of your guild is not on this server ! You need to go to the server it is on to unclaim !'
+  entering-claim: '&eYou entered the territory of the guild &a%name% &e!'
+  leaving-claim: '&eYou left the territory of the guild &a%name% &e!'

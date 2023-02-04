@@ -1,0 +1,10 @@
+main: me.nerumir.guildclaims.Main
+name: GuildClaimsAddon
+version: 1.0
+author: Nerumir
+api-version: 1.13
+
+depend: [Guilds]
+
+commands:
+  cbp:
