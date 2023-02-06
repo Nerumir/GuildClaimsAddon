@@ -44,7 +44,7 @@ public abstract class Data {
 		}
 	}
 	
-	public static void cleanExpiratedClaims() throws SQLException {
+	public static void cleanExpiratedClaims() throws SQLException, IOException {
 		
 		Boolean isSQL = Main.getPlugin().getConfig().getBoolean("sql.enabled");
 		if(isSQL) {
@@ -61,6 +61,7 @@ public abstract class Data {
 					Database.execute("DELETE FROM "+Main.getConnexion().get("table")+" WHERE guild_id = '"+claims.getString("guild_id")+"'");
 				}
 			}
+			claims.close();
 		}
 		else {
 			//Ouvrir la config du claims.yml
@@ -82,6 +83,7 @@ public abstract class Data {
 				if(lastPlayed < System.currentTimeMillis() - expiration*24*3600*1000) {
 					//remove claim from claims.yml
 					claimsConfig.set(guild_id, null);
+					claimsConfig.save(claimsFile);
 				}
 			}
 		}
@@ -106,6 +108,7 @@ public abstract class Data {
 				claim.put("size",claims.getString("size"));
 				map.put(claims.getString("guild_id"),claim);
 			}
+			claims.close();
 			return map;
 		}
 		else {
@@ -138,7 +141,7 @@ public abstract class Data {
 	}
 	
 	//uploadCache(plugin) --> Actualiser les données stockées en fonction du cache.
-	public static void uploadCache() {
+	public static void uploadCache() throws IOException {
 		
 		Boolean isSQL = Main.getPlugin().getConfig().getBoolean("sql.enabled");
 		if(isSQL) {
@@ -190,6 +193,7 @@ public abstract class Data {
 					claimsConfig.set(oldGuild_id, null);
 				}
 			}
+			claimsConfig.save(claimsFile);
 		}
 	}
 }

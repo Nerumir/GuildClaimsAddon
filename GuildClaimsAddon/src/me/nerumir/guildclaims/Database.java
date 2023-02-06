@@ -14,9 +14,9 @@ public abstract class Database {
 		Connection conn = null;
 		try
 	    {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			HashMap<String, String> ids = Main.getConnexion();
-			conn = DriverManager.getConnection(ids.get("url"), ids.get("user"), ids.get("password"));
+			conn = DriverManager.getConnection(ids.get("url")+"?serverTimezone=UTC", ids.get("user"), ids.get("password"));
 		    PreparedStatement preparedStatement = conn.prepareStatement("SELECT count(*) "
 		      + "FROM information_schema.tables "
 		      + "WHERE table_name = ?"
@@ -41,28 +41,20 @@ public abstract class Database {
 		try
 	    {
 	      //étape 1: charger la classe driver
-	      Class.forName("com.mysql.jdbc.Driver");
+	      Class.forName("com.mysql.cj.jdbc.Driver");
 	      //étape 2: créer l'objet de connexion
 	      HashMap<String, String> ids = Main.getConnexion();
-	      conn = DriverManager.getConnection(ids.get("url"), ids.get("user"), ids.get("password"));
+	      conn = DriverManager.getConnection(ids.get("url")+"?serverTimezone=UTC", ids.get("user"), ids.get("password"));
 	      //étape 3: créer l'objet statement
 	      stmt = conn.createStatement();
 	      //étape 4: exécuter la requéte
 	      feedback = stmt.executeUpdate(query);
+			conn.close();
+			stmt.close();
 	    }
 	    catch(Exception e){ 
 	      System.out.println(e);
 	    }
-	    //étape 5: fermez l'objet de connexion
-		finally {
-			try {
-				conn.close();
-				stmt.close();
-			}
-			catch (SQLException e){
-				e.printStackTrace();
-			}
-		}
 		
 		return feedback;
 	}
@@ -76,10 +68,10 @@ public abstract class Database {
 		try
 	    {
 	      //étape 1: charger la classe driver
-	      Class.forName("com.mysql.jdbc.Driver");
+	      Class.forName("com.mysql.cj.jdbc.Driver");
 	      //étape 2: créer l'objet de connexion
 	      HashMap<String, String> ids = Main.getConnexion();
-	      conn = DriverManager.getConnection(ids.get("url"), ids.get("user"), ids.get("password"));
+	      conn = DriverManager.getConnection(ids.get("url")+"?serverTimezone=UTC", ids.get("user"), ids.get("password"));
 	      //étape 3: créer l'objet statement
 	      stmt = conn.createStatement();
 	      //étape 4: exécuter la requéte
@@ -88,16 +80,6 @@ public abstract class Database {
 	    catch(Exception e){ 
 	      System.out.println(e);
 	    }
-	    //étape 5: fermez l'objet de connexion
-		finally {
-			try {
-				conn.close();
-				stmt.close();
-			}
-			catch (SQLException e){
-				e.printStackTrace();
-			}
-		}
 		
 		return res;
 	}

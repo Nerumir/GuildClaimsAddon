@@ -24,6 +24,11 @@ serverMarker: 'server1'
 worlds: ['world']
 blacklist: false
 
+#if true, everyone can spawn a creeper egg in any claim
+creeper-eggs: true
+#if true, all kind of explosions are enabled on any claim (making TNT canons possibles for example), if false, every explosion on a claim will be canceled.
+explosions-on-claims: true
+
 #Radius of the claim for each tier of the guild.
 #Expiration is the number of days of inactivity of the leader of the guild (last time logged in) before a claim is removed (permanently).
 #Make sure the key matches the tier id in the tier.yml file of your Guilds's folder.
@@ -37,6 +42,15 @@ tiers:
   '3':
     radius: 100
     expiration: 45
+  '4':
+    radius: 150
+    expiration: 45
+  '5':
+    radius: 200
+    expiration: 45
+  '6':
+    radius: 350
+    expiration: 90
 
 #messages shown by the addon in game. Use '&' for minecraft colors.
 messages:
@@ -44,12 +58,14 @@ messages:
   bypass-off: '&cBypass mode for claims desactivated.'
   no-console: '&4This command cannot by executed by console.'
   not-in-guild: '&cYou are not in a guild.'
+  not-in-valid-world: '&cYou are not in a valid claiming world.'
   not-leader: '&cYou are not the leader of the guild.'
   claim-exists: '&cA claim already exists.'
   claim-success: '&aClaim successfuly created.'
   claim-overlap: '&cCannot claim, it will overlap other claims.'
   claim-not-exist: '&cYour guild does''nt have any claim.'
   unclaim-success: '&aClaim successfuly removed.'
-  claim-not-on-server: '&cThe claim of your guild is not on this server ! You need to go to the server it is on to unclaim !'
+  claim-not-on-server: '&cThe claim of your guild is not on this server ! You need to go to the server it is on to unclaim or remove your guild !'
   entering-claim: '&eYou entered the territory of the guild &a%name% &e!'
   leaving-claim: '&eYou left the territory of the guild &a%name% &e!'
+  cannot-do-that: '&cYou can''t do that here, it''s &6%name%&c''s territory !'

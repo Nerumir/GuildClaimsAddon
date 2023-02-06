@@ -1,6 +1,7 @@
 package me.nerumir.guildclaims;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,20 +23,14 @@ import me.glaremasters.guilds.guild.Guild;
 public abstract class Claim {
 	
 	public static Boolean validWorld(World world) {
-		
+				
 		List<String> worlds = Main.getWorlds();
 		Boolean blacklist = Main.getBlacklist();
-		Boolean contains = false;
-		if(worlds.contains(world.getName())) {
-			contains = true;
-		}
-		
-		if((blacklist && !contains) || (contains && !blacklist)) {
+		Boolean contains = worlds.contains(world.getName());
+		if(blacklist != contains) {
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	//get the radius a guild can claim, giving the player.
@@ -61,7 +56,7 @@ public abstract class Claim {
 		for(String guild_id : claims) {
 			HashMap<String, Object> claim = cache.get(guild_id);
 			//check if potential new claim would overlap current parsed claim
-			if(world == claim.get("world") && server == claim.get("server")) {
+			if(world.equals(claim.get("world")) && server.equals(claim.get("server"))) {
 				int xi = Integer.valueOf((String) claim.get("x"));
 				int zi = Integer.valueOf((String) claim.get("z"));
 				int size = Integer.valueOf((String) claim.get("size"));
@@ -93,7 +88,7 @@ public abstract class Claim {
 		//retrieve player's claim
 		HashMap<String, Object> claim = Main.getClaims().get(playerGuild.getId().toString());
 		//check if location is in claim
-		if(p.getWorld().getName() == claim.get("world") && Main.getServerMarker() == claim.get("server")) {
+		if(p.getWorld().getName().equals(claim.get("world")) && Main.getServerMarker().equals(claim.get("server"))) {
 			int xi = Integer.valueOf((String) claim.get("x"));
 			int zi = Integer.valueOf((String) claim.get("z"));
 			int size = Integer.valueOf((String) claim.get("size"));
@@ -120,7 +115,7 @@ public abstract class Claim {
 		for(String guild_id : claims) {
 			HashMap<String, Object> claim = cache.get(guild_id);
 			//check if location is in current parsed claim
-			if(world == claim.get("world") && server == claim.get("server")) {
+			if(world.equals(claim.get("world")) && server.equals(claim.get("server"))) {
 				int xi = Integer.valueOf((String) claim.get("x"));
 				int zi = Integer.valueOf((String) claim.get("z"));
 				int size = Integer.valueOf((String) claim.get("size"));
@@ -139,7 +134,7 @@ public abstract class Claim {
 	//return 0 = overlapping
 	//return 1 = success
 	//return 2 = already exists
-	public static int claim(Player p) {
+	public static int claim(Player p) throws FileNotFoundException, IOException, InvalidConfigurationException {
 		Boolean isSQL = Main.getPlugin().getConfig().getBoolean("sql.enabled");
 		//check if overlaping
 		if(overlap(p)) {
@@ -183,6 +178,7 @@ public abstract class Claim {
 				claimsConfig.set(guild_id+".x", cache_claim.get("x"));
 				claimsConfig.set(guild_id+".z", cache_claim.get("z"));
 				claimsConfig.set(guild_id+".size", cache_claim.get("size"));
+				claimsConfig.save(claimsFile);
 				return 1;
 			}
 			else {
@@ -222,6 +218,7 @@ public abstract class Claim {
         						+ " guild_name = '"+cache_claim.get("name")+"', x = "+cache_claim.get("x")+", z = "+cache_claim.get("z")+","
         						+ " size = "+cache_claim.get("size"));
 	            	}
+					claim.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -236,14 +233,14 @@ public abstract class Claim {
 	//return 0 = claim doesn't exist
 	//return 1 = success
 	//return 2 = claim not on server
-	public static int unclaim(Player p) {
+	public static int unclaim(Player p) throws IOException {
 		Guild playerGuild = Main.getGuilds().getGuild(p);
     	String guild_id = playerGuild.getId().toString();
 		HashMap<String, HashMap<String, Object>> cache = Main.getClaims();
 		//check if claim in cache
 		if(cache.containsKey(guild_id)) {
 			//check if claim is on server
-			if(cache.get(guild_id).get("server") == Main.getServerMarker()) {
+			if(cache.get(guild_id).get("server").equals(Main.getServerMarker())) {
 				
 				cache.remove(guild_id);
 				Main.setClaims(cache);
@@ -268,6 +265,7 @@ public abstract class Claim {
 			            e.printStackTrace();
 			        }
 					claimsConfig.set(guild_id, null);
+					claimsConfig.save(claimsFile);
 				}
 				return 1;
 			}

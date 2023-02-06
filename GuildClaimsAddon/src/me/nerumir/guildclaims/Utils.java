@@ -8,13 +8,15 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public abstract class Utils {
 
-	public static void reload() {
+	public static void reload() throws IOException {
 		
 		Main.getPlugin().reloadConfig();
 		//reload config cache.
 		Main.setWorlds(Main.getPlugin().getConfig().getStringList("worlds"));
 		Main.setBlacklist(Main.getPlugin().getConfig().getBoolean("blacklist"));
 		Main.setServerMarker(Main.getPlugin().getConfig().getString("serverMarker"));
+		Main.setCreeperEggs(Main.getPlugin().getConfig().getBoolean("creeper-eggs"));
+		Main.setExplosions(Main.getPlugin().getConfig().getBoolean("explosions-on-claims"));
 		HashMap<String, String> messages = new HashMap<>();
 		messages.put("bypass-on", Main.getPlugin().getConfig().getString("messages.bypass-on"));
 		messages.put("bypass-off", Main.getPlugin().getConfig().getString("messages.bypass-off"));
@@ -29,11 +31,13 @@ public abstract class Utils {
 		messages.put("claim-not-on-server", Main.getPlugin().getConfig().getString("messages.claim-not-on-server"));
 		messages.put("entering-claim", Main.getPlugin().getConfig().getString("messages.entering-claim"));
 		messages.put("leaving-claim", Main.getPlugin().getConfig().getString("messages.leaving-claim"));
+		messages.put("not-in-valid-world", Main.getPlugin().getConfig().getString("messages.not-in-valid-world"));
+		messages.put("cannot-do-that", Main.getPlugin().getConfig().getString("messages.cannot-do-that"));
 		Main.setMessages(messages);
 		//cache the database connection infos
 		FileConfiguration guildsConfig = Main.getGuilds().getGuildHandler().getGuildsPlugin().getConfig();
 		HashMap<String, String> connexion = new HashMap<>();
-		connexion.put("url", "jdbc:mysql:" + guildsConfig.getString("storage.sql.host") + ":"
+		connexion.put("url", "jdbc:mysql://" + guildsConfig.getString("storage.sql.host") + ":"
 				+ guildsConfig.getString("storage.sql.port") + "/" + guildsConfig.getString("storage.sql.database"));
 		connexion.put("user", guildsConfig.getString("storage.sql.username"));
 		connexion.put("password", guildsConfig.getString("storage.sql.password"));

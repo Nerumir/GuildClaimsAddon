@@ -22,18 +22,18 @@ public class Farewell implements Listener {
 			UUID startTerritory = Claim.claimOfPos(event.getFrom());
 			UUID endTerritory = Claim.claimOfPos(event.getTo());
 			//check if crossing a claim
-			if(startTerritory != endTerritory) {
+			if(!startTerritory.equals(endTerritory)) {
 				HashMap<String, String> messages = Main.getMessages();
 				//check if leaving a claim
-				if(startTerritory != new UUID(0,0)) {
+				if(!startTerritory.equals(new UUID(0,0))) {
 					String guildName = Main.getGuilds().getGuild(startTerritory).getName();
-					String message = messages.get("entering-claim").replace("%name%", guildName);
+					String message = messages.get("leaving-claim").replace("%name%", guildName);
 					event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				}
 				//check if entering a claim
-				if(endTerritory != new UUID(0,0)) {
+				if(!endTerritory.equals(new UUID(0,0))) {
 					String guildName = Main.getGuilds().getGuild(endTerritory).getName();
-					String message = messages.get("leaving-claim").replace("%name%", guildName);
+					String message = messages.get("entering-claim").replace("%name%", guildName);
 					event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				}
 			}

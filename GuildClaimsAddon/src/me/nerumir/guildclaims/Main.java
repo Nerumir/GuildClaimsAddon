@@ -16,6 +16,7 @@ import me.glaremasters.guilds.api.GuildsAPI;
 import me.nerumir.guildclaims.cmds.Bypass;
 import me.nerumir.guildclaims.listeners.Commands;
 import me.nerumir.guildclaims.listeners.Farewell;
+import me.nerumir.guildclaims.listeners.GuildsEvents;
 import me.nerumir.guildclaims.listeners.Protection;
 
 public class Main extends JavaPlugin implements Listener {
@@ -25,6 +26,8 @@ public class Main extends JavaPlugin implements Listener {
 	private static HashMap<String, HashMap<String, Object>> cache = new HashMap<>();
 	private static HashMap<String, String> connexion = new HashMap<>();
 	private static Boolean blacklist;
+	private static Boolean explosions;
+	private static Boolean creeperEggs;
 	private static List<String> worlds;
 	private static String server;
 	private static List<UUID> bypassPlayers;
@@ -43,6 +46,26 @@ public class Main extends JavaPlugin implements Listener {
 	public static Boolean getBlacklist() {
 		
 		return blacklist;
+	}
+
+	public static Boolean getExplosions() {
+		
+		return explosions;
+	}
+
+	public static void setExplosions(Boolean exp) {
+		
+		explosions = exp;
+	}
+
+	public static Boolean getCreeperEggs() {
+		
+		return creeperEggs;
+	}
+
+	public static void setCreeperEggs(Boolean creep) {
+		
+		creeperEggs = creep;
 	}
 	
 	public static List<String> getWorlds() {
@@ -122,6 +145,8 @@ public class Main extends JavaPlugin implements Listener {
 		worlds = this.getConfig().getStringList("worlds");
 		blacklist = this.getConfig().getBoolean("blacklist");
 		server = this.getConfig().getString("serverMarker");
+		explosions = this.getConfig().getBoolean("explosions-on-claims");
+		creeperEggs = this.getConfig().getBoolean("creeper-eggs");
 		messages.put("bypass-on", this.getConfig().getString("messages.bypass-on"));
 		messages.put("bypass-off", this.getConfig().getString("messages.bypass-off"));
 		messages.put("no-console", this.getConfig().getString("messages.no-console"));
@@ -135,11 +160,13 @@ public class Main extends JavaPlugin implements Listener {
 		messages.put("claim-not-on-server", this.getConfig().getString("messages.claim-not-on-server"));
 		messages.put("entering-claim", this.getConfig().getString("messages.entering-claim"));
 		messages.put("leaving-claim", this.getConfig().getString("messages.leaving-claim"));
+		messages.put("not-in-valid-world", this.getConfig().getString("messages.not-in-valid-world"));
+		messages.put("cannot-do-that", this.getConfig().getString("messages.cannot-do-that"));
 		
 		//cache the database connection infos
 		FileConfiguration guildsConfig = guilds.getGuildHandler().getGuildsPlugin().getConfig();
 		
-		connexion.put("url", "jdbc:mysql:" + guildsConfig.getString("storage.sql.host") + ":"
+		connexion.put("url", "jdbc:mysql://" + guildsConfig.getString("storage.sql.host") + ":"
 				+ guildsConfig.getString("storage.sql.port") + "/" + guildsConfig.getString("storage.sql.database"));
 		connexion.put("user", guildsConfig.getString("storage.sql.username"));
 		connexion.put("password", guildsConfig.getString("storage.sql.password"));
@@ -161,6 +188,7 @@ public class Main extends JavaPlugin implements Listener {
 		//registering commands and events
 		this.getCommand("cbp").setExecutor(new Bypass());
 		this.getServer().getPluginManager().registerEvents(new Commands(), this);
+		this.getServer().getPluginManager().registerEvents(new GuildsEvents(), this);
 		this.getServer().getPluginManager().registerEvents(new Farewell(), this);
 		this.getServer().getPluginManager().registerEvents(new Protection(), this);
 	}
