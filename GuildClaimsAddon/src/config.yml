@@ -3,11 +3,14 @@
 #                                                  #
 #      Reloading Guilds will reload this addon     #
 #  The claiming commands are the ones from Guilds  #
-#        The addon will reload with Guilds         #
+#       Admin claiming commands will not work      #
 #                                                  #
 #       Only one additionnal command exists        #
 #      It's /cbp, to bypass claim protections      #
 #   Permission for that command is guilds.bypass   #
+#                                                  #
+#      This is better to disable claims in         #
+#    your guilds config file to use this addon     #
 ####################################################
 
 
@@ -23,6 +26,14 @@ serverMarker: 'server1'
 #List of worlds where the players can claim. If blacklist is set to true, then, it's the list of worlds where player cannot claim.
 worlds: ['world']
 blacklist: false
+
+#####################################################
+
+#In a claim, interactions (like opening chests, pressing buttons, etc..), placing blocks and breaking blocks are things that only players in the guild of the claim can perform.
+#They can interact,break,place according to the permission of the roles in the roles.yml file of your Guilds folder.
+#The last thing that changes with claims is PvP. A guild member that is in his claim he immuned to all kind of PvP damages, but he can still damage other players !
+
+#####################################################
 
 #if true, everyone can spawn a creeper egg in any claim
 creeper-eggs: true
@@ -66,6 +77,6 @@ messages:
   claim-not-exist: '&cYour guild does''nt have any claim.'
   unclaim-success: '&aClaim successfuly removed.'
   claim-not-on-server: '&cThe claim of your guild is not on this server ! You need to go to the server it is on to unclaim or remove your guild !'
-  entering-claim: '&eYou entered the territory of the guild &a%name% &e!'
-  leaving-claim: '&eYou left the territory of the guild &a%name% &e!'
-  cannot-do-that: '&cYou can''t do that here, it''s &6%name%&c''s territory !'
+  entering-claim: '&eYou entered the territory of the guild &a{name} &e!'
+  leaving-claim: '&eYou left the territory of the guild &a{name} &e!'
+  cannot-do-that: '&cYou can''t do that here, it''s &6{name}&c''s territory !'

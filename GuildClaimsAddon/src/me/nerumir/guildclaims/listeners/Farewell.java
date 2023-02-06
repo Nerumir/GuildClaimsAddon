@@ -27,13 +27,13 @@ public class Farewell implements Listener {
 				//check if leaving a claim
 				if(!startTerritory.equals(new UUID(0,0))) {
 					String guildName = Main.getGuilds().getGuild(startTerritory).getName();
-					String message = messages.get("leaving-claim").replace("%name%", guildName);
+					String message = messages.get("leaving-claim").replace("{name}", guildName);
 					event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				}
 				//check if entering a claim
 				if(!endTerritory.equals(new UUID(0,0))) {
 					String guildName = Main.getGuilds().getGuild(endTerritory).getName();
-					String message = messages.get("entering-claim").replace("%name%", guildName);
+					String message = messages.get("entering-claim").replace("{name}", guildName);
 					event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				}
 			}

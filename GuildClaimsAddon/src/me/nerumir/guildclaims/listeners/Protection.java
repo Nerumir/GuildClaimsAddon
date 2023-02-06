@@ -49,7 +49,7 @@ public class Protection implements Listener{
 				//check if the player being hit is in his own guild claim
 				if(Claim.inHisClaim(p)) {
 					String guildName = Main.getGuilds().getGuild(p).getName();
-					String message = messages.get("cannot-do-that").replace("%name%", guildName);
+					String message = messages.get("cannot-do-that").replace("{name}", guildName);
 					attacker.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 					event.setCancelled(true);
 					return;
@@ -64,7 +64,7 @@ public class Protection implements Listener{
 					Player attacker = (Player) attacker_entity;
 					if(Claim.inHisClaim(p)) {
 						String guildName = Main.getGuilds().getGuild(p).getName();
-						String message = messages.get("cannot-do-that").replace("%name%", guildName);
+						String message = messages.get("cannot-do-that").replace("{name}", guildName);
 						attacker.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 						event.setCancelled(true);
 						return;
@@ -112,14 +112,14 @@ public class Protection implements Listener{
 			Guild playerGuild = Main.getGuilds().getGuild(p);
 			if(playerGuild == null) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setCancelled(true);
 				return;
 			}
 			if(!Main.getClaims().containsKey(playerGuild.getId().toString())) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setCancelled(true);
 				return;
@@ -127,7 +127,7 @@ public class Protection implements Listener{
 			//if player has a guild, check if the claim of the block is his own claim
 			if(!guildTerritory.equals(playerGuild.getId())  || !Main.getGuilds().getGuildRole(p).hasPerm(GuildRolePerm.PLACE)) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setCancelled(true);
 				return;
@@ -156,14 +156,14 @@ public class Protection implements Listener{
 			Guild playerGuild = Main.getGuilds().getGuild(p);
 			if(playerGuild == null) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setCancelled(true);
 				return;
 			}
 			if(!Main.getClaims().containsKey(playerGuild.getId().toString())) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setCancelled(true);
 				return;
@@ -171,7 +171,7 @@ public class Protection implements Listener{
 			//if player has a guild, check if the claim of the block is his own claim
 			if(!guildTerritory.equals(playerGuild.getId()) || !Main.getGuilds().getGuildRole(p).hasPerm(GuildRolePerm.DESTROY)) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setCancelled(true);
 				return;
@@ -224,7 +224,7 @@ public class Protection implements Listener{
 			Guild playerGuild = Main.getGuilds().getGuild(p);
 			if(playerGuild == null) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setUseInteractedBlock(Result.DENY);
 				event.setUseItemInHand(Result.DENY);
@@ -233,7 +233,7 @@ public class Protection implements Listener{
 			}
 			if(!Main.getClaims().containsKey(playerGuild.getId().toString())) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setUseInteractedBlock(Result.DENY);
 				event.setUseItemInHand(Result.DENY);
@@ -243,7 +243,7 @@ public class Protection implements Listener{
 			//if player has a guild, check if the claim of the block is his own claim
 			if(!guildTerritory.equals(playerGuild.getId()) || !Main.getGuilds().getGuildRole(p).hasPerm(GuildRolePerm.INTERACT)) {
 				String guildName = Main.getGuilds().getGuild(guildTerritory).getName();
-				String message = messages.get("cannot-do-that").replace("%name%", guildName);
+				String message = messages.get("cannot-do-that").replace("{name}", guildName);
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 				event.setUseInteractedBlock(Result.DENY);
 				event.setUseItemInHand(Result.DENY);
