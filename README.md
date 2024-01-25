@@ -11,7 +11,7 @@
 - A **bypass** command with a permission for it.
 - Possibility to decide in **which world** we can claim (with a **blacklist** or **whitelist** system, it's more convenient)
 - **YAML** storage or **MySQL** storage (fully able to handle **multiple servers** architecture if MySQL storage is choosen)
-- **Overriding** your /g claim and /g unclaim commands and automatically reload with the /g reload command after Guilds does.
+- **Overriding** the `/g claim` and `/g unclaim` commands and automatically reload with the `/g reload` command after Guilds does.
 - Claims works with roleperms of **roles.yml of Guilds folder** for interact, destroy and place.
 - Members are **immuned to PvP** damages when standing in their claim.
 
