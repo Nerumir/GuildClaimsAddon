@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="src/" kind="src" path=""/>
-	<classpathentry kind="lib" path="/home/nerumir/Bureau/Business/MineCraft/Altered Warrior/buildtool/Spigot/Spigot-API/target/spigot-api-1.19.3-R0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="/home/nerumir/Bureau/Business/MineCraft/Altered Warrior/buildtool/Guilds-3.5.6.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jgabr/Desktop/Cloud/informatique/GuildClaimsAddon/Spigot/Spigot/Spigot-API/target/spigot-api-1.20.4-R0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jgabr/Desktop/Cloud/informatique/GuildClaimsAddon/Guilds-3.5.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
