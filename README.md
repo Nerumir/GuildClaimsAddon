@@ -1,6 +1,6 @@
 # Plugin features :
 
-*This plugin do not need any other claiming plugin. Only depedency is **[Guilds](https://glare.dev)**.*
+*This plugin do not need any other claiming plugin. Only dependency is **[Guilds](https://glare.dev)**.*
 
 - A **radius** that depend on the guild tier.
 - An **expiration date** in days (since last time the guild master logged out). Past that, it will remove the guild's claim.
